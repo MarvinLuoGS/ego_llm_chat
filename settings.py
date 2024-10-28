@@ -4,7 +4,7 @@ SESSION_CONFIGS = [
     dict(
         name='ego_chat',
         app_sequence=[
-            'send_input',
+            #'send_input',
             'ego_chat'],
         num_demo_participants=3,
     ),
@@ -37,3 +37,5 @@ ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
 DEMO_PAGE_INTRO_HTML = """ """
 
 SECRET_KEY = '9807975713326'
+
+DEBUG = False

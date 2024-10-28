@@ -44,12 +44,13 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     name = models.StringField(label="Your name")
+    article = models.LongStringField(label="写一首诗")
 
 
 # PAGES
 class Welcome(Page):
-    form_fields = ["name"]
-    form_model = "player"
+    #form_fields = ["name"]
+    #form_model = "player"
 
     def before_next_page(player, timeout_happened):
         with ai(player) as llm:
@@ -60,6 +61,9 @@ class Welcome(Page):
 
 
 class Chat(Page):
+    form_fields = ["article"]
+    form_model = "player"
+
     def live_method(player, data):
         if isinstance(data, str):
             with ai(player) as llm:
