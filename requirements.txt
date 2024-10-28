@@ -1,0 +1,5 @@
+
+otree>=5.0.0a21
+psycopg2>=2.8.4
+alter_ego_llm
+openai
