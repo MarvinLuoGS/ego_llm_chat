@@ -21,6 +21,17 @@ class Subsession(BaseSubsession):
 
 
 def creating_session(subsession):
+    import datetime as dt
+    session = subsession.session
+    now = dt.datetime.now()
+    format_date = now.strftime("%Y-%m-%d_%H-%M-%S")
+    session.label = format_date
+    file_path = '_rooms/Econ.txt'
+    with open(file_path,'r') as file:
+        label = file.readlines()
+        labels = [int(line.strip()) for line in label]
+    for p,label in zip(subsession.get_players(),labels):
+        p.participant.label = label
     for player in subsession.get_players():
         # here we associate a "Thread" with an oTree object
         # can associate Threads with: players, groups, participants, subsessions, sessions
@@ -28,7 +39,7 @@ def creating_session(subsession):
         # this here is an actual GPT model by OpenAI, put the API key in the
         # project directory, file "api_key"
 
-        ai(player).set(GPTThread(model="gpt-3.5-turbo", temperature=1.0))
+        ai(player).set(GPTThread(model="deepseek-chat", temperature=1.5))
 
         # this here is a very stupid "constant" thread that always gives the
         # same response
