@@ -6,10 +6,10 @@ doc = """
 This app send the input to the GPT or other LLM to get the scores.
 """
 
-def get_scores(client, article):
+def get_scores(client, model, article):
     # get the scores from the LLM
     stream = client.chat.completions.create(
-    model="gpt-3.5-turbo",
+    model=model,
     messages=[{"role": "user", "content": f"给下面的这首诗评分，内容在【】中，评分范围1-10分，只报告分数数字：【{article}】"}],
     )
     score = stream.choices[0].message.content
@@ -45,8 +45,9 @@ class Input_article(Page):
     def before_next_page(player, timeout_happened):
         api_key = os.environ.get("OPENAI_API_KEY")
         base_url = os.environ.get("OPENAI_BASE_URL")
+        model = 'deepseek-chat'
         client = OpenAI(api_key=api_key, base_url=base_url)
-        player.score = get_scores(client, player.article)
+        player.score = get_scores(client, model, player.article)
 
 class ResultsWaitPage(WaitPage):
     pass
