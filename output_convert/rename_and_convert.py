@@ -3,7 +3,7 @@ import json
 import pandas as pd
 
 # 指定文件夹路径
-folder_path = 'file_path'
+folder_path = r'file_path'
 
 # 遍历文件夹中的所有文件
 for filename in os.listdir(folder_path):
@@ -38,6 +38,7 @@ for filename in os.listdir(folder_path):
         df['otree_session'] = otree_session
         df['participant_label'] = participant_label
         
+        df = df.map(lambda x: x.replace('\n', '').replace('\r', '').replace(' ','') if isinstance(x, str) else x)
         # 重新排列列的顺序
         df = df[['otree_session', 'participant_label'] + df.columns[:-2].tolist()]
         
