@@ -1,1 +1,1 @@
-You are an AI. Today, you are interacting with a real human. Always be polite and courteous.
+你是一个AI助理，你正在和真实的人类交互，保证礼貌回复，回复的时候只需要回复纯文本，不需要加粗、斜体等格式

@@ -31,3 +31,13 @@ if "BasePlayer" in super_names:
     metadata["participant_label"] = instance.participant.label
     ····
 ```
+
+### system文件的修改
+- stytem.txt文件是发送给模型的默认信息，修改为中文的话，alter_ego的源码需要修改
+- 在D:\ego-llm\ego\Lib\site-packages\alter_ego\utils\\\_\_init\_\_.py文件中，修改以下代码，给open添加encoding参数：
+```python
+def from_file(file_name: str) -> str:
+
+    with open(file_name,encoding="utf-8") as f:
+        return f.read().strip()
+```

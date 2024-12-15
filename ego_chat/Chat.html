@@ -84,7 +84,9 @@
             newp.innerHTML = "<i>" + role + "</i>:<br>" + to_html(msg);
 
             msgs.appendChild(newp);
-            window.scrollTo(0, 10000000);
+            //window.scrollTo(0, 10000000);
+            // 自动滚动到容器底部
+            msgs.scrollTop = msgs.scrollHeight;
         }
 
         function liveRecv(data) {
@@ -110,11 +112,14 @@
             display: flex;
             justify-content: space-between;
             padding: 20px;
+            height: 100vh;
+            
         }
         .column {
             width: 48%; /* 让两列相对宽度合计为100% */
             padding: 10px;
             box-sizing: border-box; /* 包括padding在内的宽度计算 */
+            flex:1;
         }
         .left-column {
             background-color: #f0f0f0; /* 左侧列背景色 */
@@ -124,7 +129,7 @@
         }
         #id_article {
             width: 100%;
-            height: 500px;
+            height: 400px;
             padding: 10px;
             box-sizing: border-box;
             border: 1px solid #ccc;
@@ -135,6 +140,11 @@
             resize: none;
             height: 100px;
             width: 100%;
+        }
+
+        #msgs {
+            height: 100%;        /* 固定高度 */
+            overflow-y: auto;     /* 启用垂直滚动 */
         }
 
         @keyframes lightup {
