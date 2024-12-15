@@ -1,7 +1,7 @@
 
 
 {{ block content }}
-<h1>正式测试</h1>
+
 <div class="container">
     <div class="column left-column">
         <h2>题目</h2>
@@ -21,9 +21,9 @@
         {% endfor %}
     </div>
 
-    <p>
+    <p class="p_textarea">
         <i>user</i>:<br />
-        <textarea class="form-control" id="next_msg" rows="3"></textarea>
+        <textarea class="form-control" id="next_msg" ></textarea>
     </p>
 
     <div id="loading"></div>
@@ -66,10 +66,10 @@
         function to_html(s) {
             // Escape special characters
             var escaped = s.replace(/&/g, "&amp;")
-                           .replace(/</g, "&lt;")
-                           .replace(/>/g, "&gt;")
-                           .replace(/"/g, "&quot;")
-                           .replace(/'/g, "&#039;");
+                            .replace(/</g, "&lt;")
+                            .replace(/>/g, "&gt;")
+                            .replace(/"/g, "&quot;")
+                            .replace(/'/g, "&#039;");
 
             // Convert newlines
             var converted = escaped.replace(/\n/g, '<br>');
@@ -127,24 +127,49 @@
         .right-column {
             background-color: #e0e0e0; /* 右侧列背景色 */
         }
+        /*填入答案的区域，left-column*/
         #id_article {
             width: 100%;
-            height: 400px;
+            height: 100%;
             padding: 10px;
             box-sizing: border-box;
             border: 1px solid #ccc;
             font-size: 16px;
             resize: none;
         }
+        /*输入聊天的区域，right-column*/
         #next_msg{
             resize: none;
-            height: 100px;
+            height: 85%;
             width: 100%;
         }
 
+        /*这个是占left-column的80%的div，里面有题目的label以及输入框，输入框外面有一个div是control类的*/
+        .mb-3._formfield{
+            height:80%;
+            width:100%;
+            resize: none;
+        }
+
+        /*这个是输入框外面的controls类，它的高度相对于mb-3._formfield确定*/
+        .controls:has(#id_article){
+            height:90%;
+            width:100%;
+            resize: none;
+        }
+
+        /*这个是输入对话的next_msg框外面的p，占right-column的一部分*/
+        .p_textarea{
+            height:15%;
+            width:100%;
+            resize: none;
+        }
+    
+        /*这个是聊天记录的框，占right-column的一部分*/
         #msgs {
-            height: 100%;        /* 固定高度 */
+            height: 70%;        /* 固定高度 */
             overflow-y: auto;     /* 启用垂直滚动 */
+            border: 2px solid rgba(0, 0, 0, 0.3);  /* 半透明的黑色边框 */
         }
 
         @keyframes lightup {
@@ -154,8 +179,8 @@
         }
 
         @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .msg {
@@ -165,18 +190,18 @@
 
         /* CSS for loading spinner */
         #loading {
-          display: none;
-          position: fixed;
-          z-index: 1000;
-          left: 50%;
-          top: 50%;
-          width: 80px;
-          height: 80px;
-          margin: -40px 0 0 -40px;
-          border: 16px solid #f3f3f3;
-          border-radius: 50%;
-          border-top: 16px solid #3498db;
-          animation: spin 2s linear infinite;
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 50%;
+            top: 50%;
+            width: 80px;
+            height: 80px;
+            margin: -40px 0 0 -40px;
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            animation: spin 2s linear infinite;
         }
     </style>
 
