@@ -31,6 +31,10 @@
     <button type="button" class="btn btn-primary" id="send" onclick="send_msg()" style="background-color:#228B22;border-color:#228B22;float:right;">发送信息</button>
     </div>
 </div>
+<!--
+    <script src="https://cdn.jsdelivr.net/npm/marked@15.0.4/lib/marked.umd.min.js"></script>
+-->
+<script src="{{ static 'marked/marked.min.js' }}"></script>
     <script>
         var btn, msgs;
 
@@ -81,10 +85,13 @@
             var newp = document.createElement("p");
             newp.classList.add("msg");
 
-            newp.innerHTML = "<i>" + role + "</i>:<br>" + to_html(msg);
+            //newp.innerHTML = "<i>" + role + "</i>:<br>" + to_html(msg);
+            newmsg = to_html(msg);
+            newp.innerHTML = "<i>" + role + "</i>:<br>" + marked.parse(newmsg);
 
             msgs.appendChild(newp);
-            window.scrollTo(0, 10000000);
+            //window.scrollTo(0, 10000000);
+            msgs.scrollTop = msgs.scrollHeight;
         }
 
         function liveRecv(data) {
@@ -97,6 +104,20 @@
                 /* handle error */
             }
         }
+
+        function adjustHeight() {
+            var id_article = document.getElementById("id_article");
+            var screenHeight = window.innerHeight;
+            var offset = 150; // 调整为顶部和底部保留的空间
+            msgs.style.height = (screenHeight - offset) + "px";
+            id_article.style.height = (screenHeight - offset) + "px";
+        }
+
+        // 页面加载时设置高度
+        adjustHeight();
+        window.addEventListener("resize", adjustHeight);
+
+        //add_msg("User", "# Hello\nThis is **Markdown** content!\n- Item 1\n- Item 2");
     </script>
 
     <style>
@@ -124,7 +145,7 @@
         }
         #id_article {
             width: 100%;
-            height: 500px;
+            /*height: 500px;*/
             padding: 10px;
             box-sizing: border-box;
             border: 1px solid #ccc;
@@ -135,6 +156,11 @@
             resize: none;
             height: 100px;
             width: 100%;
+        }
+
+        #msgs{
+            /*height: calc(100vh - 150px);*/
+            overflow-y:auto;
         }
 
         @keyframes lightup {
